@@ -1,0 +1,1 @@
+pyuic5 data\UI\mainwin.ui -o data\UI.py
