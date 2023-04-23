@@ -75,13 +75,13 @@
       <layout class="QVBoxLayout" name="verticalLayout" stretch="1">
        <item>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="1" column="3">
-          <widget class="QRadioButton" name="vid_none_rad">
+         <item row="2" column="1">
+          <widget class="QRadioButton" name="aud_best_rad">
            <property name="text">
-            <string>None</string>
+            <string>Best</string>
            </property>
            <attribute name="buttonGroup">
-            <string notr="true">vid_btn_grp</string>
+            <string notr="true">aud_btn_grp</string>
            </attribute>
           </widget>
          </item>
@@ -95,77 +95,10 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
-          <widget class="QRadioButton" name="vid_worst_rad">
-           <property name="text">
-            <string>Worst</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">vid_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QRadioButton" name="aud_best_rad">
-           <property name="text">
-            <string>Best</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">aud_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="2">
-          <widget class="QRadioButton" name="aud_worst_rad">
-           <property name="text">
-            <string>Worst</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">aud_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="3">
-          <widget class="QRadioButton" name="aud_none_rad">
-           <property name="text">
-            <string>None</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">aud_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="2" column="4">
-          <widget class="QRadioButton" name="aud_custom_rad">
-           <property name="text">
-            <string>RadioButton</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">aud_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="0" column="5">
-          <widget class="QToolButton" name="save_dir_btn">
-           <property name="text">
-            <string>...</string>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="1">
           <widget class="QRadioButton" name="vid_best_rad">
            <property name="text">
             <string>Best</string>
-           </property>
-           <attribute name="buttonGroup">
-            <string notr="true">vid_btn_grp</string>
-           </attribute>
-          </widget>
-         </item>
-         <item row="1" column="4">
-          <widget class="QRadioButton" name="vid_custom_rad">
-           <property name="text">
-            <string>RadioButton</string>
            </property>
            <attribute name="buttonGroup">
             <string notr="true">vid_btn_grp</string>
@@ -182,34 +115,21 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_3">
+         <item row="0" column="4">
+          <widget class="QToolButton" name="save_dir_btn">
            <property name="text">
-            <string>Audio Option :</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <string>...</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" colspan="4">
+         <item row="0" column="1" colspan="3">
           <widget class="QLineEdit" name="save_dir_line">
            <property name="enabled">
             <bool>true</bool>
            </property>
           </widget>
          </item>
-         <item row="3" column="0">
-          <widget class="QCheckBox" name="cookie_check">
-           <property name="layoutDirection">
-            <enum>Qt::LeftToRight</enum>
-           </property>
-           <property name="text">
-            <string>Cookie :</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="5">
+         <item row="3" column="4">
           <widget class="QToolButton" name="cookie_file_btn">
            <property name="text">
             <string>...</string>
@@ -219,7 +139,7 @@
            </property>
           </widget>
          </item>
-         <item row="3" column="1" colspan="4">
+         <item row="3" column="1" colspan="3">
           <widget class="QLineEdit" name="cookie_file">
            <property name="readOnly">
             <bool>false</bool>
@@ -236,11 +156,71 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="3">
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="cookie_check">
+           <property name="layoutDirection">
+            <enum>Qt::LeftToRight</enum>
+           </property>
+           <property name="text">
+            <string>Cookie :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Audio Option :</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="2">
           <widget class="QPushButton" name="save_def_btn">
            <property name="text">
             <string>Save As Default</string>
            </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QRadioButton" name="aud_none_rad">
+           <property name="text">
+            <string>None</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">aud_btn_grp</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QRadioButton" name="aud_custom_rad">
+           <property name="text">
+            <string>RadioButton</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">aud_btn_grp</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QRadioButton" name="vid_custom_rad">
+           <property name="text">
+            <string>RadioButton</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">vid_btn_grp</string>
+           </attribute>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QRadioButton" name="vid_none_rad">
+           <property name="text">
+            <string>None</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">vid_btn_grp</string>
+           </attribute>
           </widget>
          </item>
         </layout>
@@ -283,11 +263,11 @@
  <resources/>
  <connections/>
  <buttongroups>
+  <buttongroup name="aud_btn_grp"/>
   <buttongroup name="vid_btn_grp">
    <property name="exclusive">
     <bool>true</bool>
    </property>
   </buttongroup>
-  <buttongroup name="aud_btn_grp"/>
  </buttongroups>
 </ui>

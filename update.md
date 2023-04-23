@@ -18,3 +18,8 @@
 2023/04/23 - 2
 
 - pack config into `Config` class
+
+2023/04/23 - 3
+
+- connect video/audio option signals to slots, not implemented
+- remove worst video/audio option
