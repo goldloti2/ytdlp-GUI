@@ -1,5 +1,5 @@
+import Config
 from DL import Search_Thread
-import json
 import os
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QFileDialog
@@ -10,11 +10,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        with open("./config/basic.cfg", "r") as cfg:
-            self.config = json.load(cfg)
-        self.config["ytdl"]["outtmpl"] = os.path.join(self.config["save_dir"],
-                                                      self.config["outtmpl"])
-        self.ui.save_dir_line.setText(self.config["save_dir"])
+        self.config = Config.Config("./config/basic.cfg")
+        self.ui.save_dir_line.setText(self.config.get_save_dir())
         self.setup_control()
 
     def setup_control(self):
@@ -23,7 +20,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def search_clicked(self):
         self.url = self.ui.url_line.text()
-        self.search_thread = Search_Thread(self.url, self.config["ytdl"])
+        self.search_thread = Search_Thread(self.url, self.config.get_ytdl())
         self.search_thread.started.connect(self.reverse_button_stat)
         self.search_thread.result_sig.connect(self.update_res_list)
         self.search_thread.finished.connect(self.reverse_button_stat)
@@ -32,11 +29,9 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def save_dir_clicked(self):
         dir_path = QFileDialog.getExistingDirectory(self,
                                                     "Open folder",
-                                                    self.config["save_dir"])
+                                                    self.config.get_save_dir())
         if dir_path != "":
-            self.config["save_dir"] = dir_path
-            self.config["ytdl"]["outtmpl"] = os.path.join(self.config["save_dir"],
-                                                          self.config["outtmpl"])
+            self.config.set_save_dir(dir_path)
             self.ui.save_dir_line.setText(dir_path)
     
     def reverse_button_stat(self):

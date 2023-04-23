@@ -9,8 +9,12 @@
 
 - new: search url and list all video name
 
-2023/04/23
+2023/04/23 - 1
 
 - renew UI layout
   - add format table and more download options
 - shortening object names (button -> btn, etc.)
+
+2023/04/23 - 2
+
+- pack config into `Config` class
