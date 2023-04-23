@@ -8,3 +8,9 @@
 2023/04/22
 
 - new: search url and list all video name
+
+2023/04/23
+
+- renew UI layout
+  - add format table and more download options
+- shortening object names (button -> btn, etc.)

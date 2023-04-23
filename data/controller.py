@@ -14,34 +14,22 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.config = json.load(cfg)
         self.config["ytdl"]["outtmpl"] = os.path.join(self.config["save_dir"],
                                                       self.config["outtmpl"])
-        self.ui.save_dir_display.setText(self.config["save_dir"])
-        self.ui.download_bar.setValue(0)
+        self.ui.save_dir_line.setText(self.config["save_dir"])
         self.setup_control()
 
     def setup_control(self):
-        self.ui.search_button.clicked.connect(self.search_clicked)
-        self.ui.save_dir_button.clicked.connect(self.open_dir)
-    
-    def reverse_button_stat(self):
-        reverse_stat = not self.ui.search_button.isEnabled()
-        self.ui.search_button.setEnabled(reverse_stat)
-        self.ui.download_button.setEnabled(reverse_stat)
-        self.ui.save_dir_button.setEnabled(reverse_stat)
+        self.ui.search_btn.clicked.connect(self.search_clicked)
+        self.ui.save_dir_btn.clicked.connect(self.save_dir_clicked)
     
     def search_clicked(self):
-        self.url = self.ui.input_url.text()
+        self.url = self.ui.url_line.text()
         self.search_thread = Search_Thread(self.url, self.config["ytdl"])
         self.search_thread.started.connect(self.reverse_button_stat)
-        self.search_thread.result_sig.connect(self.update_result_list)
+        self.search_thread.result_sig.connect(self.update_res_list)
         self.search_thread.finished.connect(self.reverse_button_stat)
         self.search_thread.start()
     
-    def update_result_list(self, result: list):
-        self.ui.result_list_box.setTitle(f"Found Video - {len(result)} total")
-        self.ui.result_list.clear()
-        self.ui.result_list.addItems(result)
-    
-    def open_dir(self):
+    def save_dir_clicked(self):
         dir_path = QFileDialog.getExistingDirectory(self,
                                                     "Open folder",
                                                     self.config["save_dir"])
@@ -49,4 +37,15 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.config["save_dir"] = dir_path
             self.config["ytdl"]["outtmpl"] = os.path.join(self.config["save_dir"],
                                                           self.config["outtmpl"])
-            self.ui.save_dir_display.setText(dir_path)
+            self.ui.save_dir_line.setText(dir_path)
+    
+    def reverse_button_stat(self):
+        reverse_stat = not self.ui.search_btn.isEnabled()
+        self.ui.search_btn.setEnabled(reverse_stat)
+        self.ui.dl_btn.setEnabled(reverse_stat)
+        self.ui.save_dir_btn.setEnabled(reverse_stat)
+    
+    def update_res_list(self, result: list):
+        self.ui.res_list_box.setTitle(f"Found Video - {len(result)} total")
+        self.ui.res_list.clear()
+        self.ui.res_list.addItems(result)
