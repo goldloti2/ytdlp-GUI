@@ -16,6 +16,20 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def init_fillin(self):
         self.ui.save_dir_line.setText(self.config.get_save_dir())
+        vid_fmt = self.config.get_vid_fmt()
+        if vid_fmt == "vid_best_rad":
+            self.ui.vid_best_rad.setChecked(True)
+        elif vid_fmt == "vid_none_rad":
+            self.ui.vid_none_rad.setChecked(True)
+        else:
+            self.ui.vid_custom_rad.setChecked(True)
+        aud_fmt = self.config.get_aud_fmt()
+        if aud_fmt == "aud_best_rad":
+            self.ui.aud_best_rad.setChecked(True)
+        elif aud_fmt == "aud_none_rad":
+            self.ui.aud_none_rad.setChecked(True)
+        else:
+            self.ui.aud_custom_rad.setChecked(True)
 
     def setup_control(self):
         self.ui.search_btn.clicked.connect(self.search_clicked)
@@ -44,14 +58,14 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             return
         if btn.objectName() == "vid_none_rad" and self.ui.aud_none_rad.isChecked():
             self.ui.aud_best_rad.setChecked(True)
-        print(btn.objectName())
+        self.config.set_vid_fmt(btn.objectName())
     
     def aud_grp_toggled(self, btn: QtWidgets.QRadioButton):
         if not btn.isChecked():
             return
         if btn.objectName() == "aud_none_rad" and self.ui.vid_none_rad.isChecked():
             self.ui.vid_best_rad.setChecked(True)
-        print(btn.objectName())
+        self.config.set_aud_fmt(btn.objectName())
     
     def reverse_button_stat(self):
         reverse_stat = not self.ui.search_btn.isEnabled()

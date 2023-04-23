@@ -26,7 +26,7 @@ class Search_Thread(QThread):
             res_list = []
             if "entries" in info.keys():
                 for entry in info["entries"]:
-                    res_list.append(entry["title"])
+                    res_list.append(f"{entry['title']}.{entry['ext']}")
             else:
-                res_list.append(info["title"])
+                res_list.append(f"{info['title']}.{info['ext']}")
             self.result_sig.emit(res_list)

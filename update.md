@@ -23,3 +23,7 @@
 
 - connect video/audio option signals to slots, not implemented
 - remove worst video/audio option
+
+2023/04/23 - 4
+
+- video/audio options now workable, and can preselect by default config

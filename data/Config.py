@@ -20,12 +20,13 @@ class Config():
         ytdl = self.__json["ytdl"]
         ytdl["outtmpl"] = os.path.join(self.__json["save_dir"],
                                        self.__json["outtmpl"])
-        # if self.__json["vid_f"] == "":
-        #     ytdl["format"] = self.__json["vid_f"] + "+" + self.__json["aud_f"]
-        # vid = self.__json["vid_f"]
-        # aud = self.__json["aud_f"]
-        # if vid != "" and aud != "":
-        #     ytdl["format"] = 1
+        if self.__json["vid_fmt"] == "":
+            ytdl["format"] = self.__json["aud_fmt"]
+        elif self.__json["aud_fmt"] == "":
+            ytdl["format"] = self.__json["vid_fmt"]
+        else:
+            ytdl["format"] = f"{self.__json['vid_fmt']}+{self.__json['aud_fmt']}"
+        ytdl["format"] += self.__json["def_fmt"]
         return ytdl
     
     def set_save_dir(self, save_dir: str):
@@ -33,3 +34,35 @@ class Config():
     
     def get_save_dir(self) -> str:
         return self.__json["save_dir"]
+    
+    def set_vid_fmt(self, vid_fmt: str):
+        if vid_fmt == "vid_best_rad":
+            self.__json["vid_fmt"] = "bv"
+        elif vid_fmt == "vid_none_rad":
+            self.__json["vid_fmt"] = ""
+        else:
+            self.__json["vid_fmt"] = vid_fmt
+    
+    def get_vid_fmt(self) -> str:
+        if self.__json["vid_fmt"] == "bv":
+            return "vid_best_rad"
+        elif self.__json["vid_fmt"] == "":
+            return "vid_none_rad"
+        else:
+            return self.__json["vid_fmt"]
+    
+    def set_aud_fmt(self, aud_fmt: str):
+        if aud_fmt == "aud_best_rad":
+            self.__json["aud_fmt"] = "ba"
+        elif aud_fmt == "aud_none_rad":
+            self.__json["aud_fmt"] = ""
+        else:
+            self.__json["aud_fmt"] = aud_fmt
+    
+    def get_aud_fmt(self) -> str:
+        if self.__json["aud_fmt"] == "ba":
+            return "aud_best_rad"
+        elif self.__json["aud_fmt"] == "":
+            return "aud_none_rad"
+        else:
+            return self.__json["aud_fmt"]
