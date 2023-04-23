@@ -27,3 +27,7 @@
 2023/04/23 - 4
 
 - video/audio options now workable, and can preselect by default config
+
+2023/04/23 - 5
+
+- add video/audio format specific options, and `line edit` objects enable when options are checked

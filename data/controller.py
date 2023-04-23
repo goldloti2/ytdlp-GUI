@@ -23,6 +23,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.ui.vid_none_rad.setChecked(True)
         else:
             self.ui.vid_custom_rad.setChecked(True)
+            self.ui.vid_custom_line.setText(vid_fmt)
         aud_fmt = self.config.get_aud_fmt()
         if aud_fmt == "aud_best_rad":
             self.ui.aud_best_rad.setChecked(True)
@@ -30,12 +31,17 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.ui.aud_none_rad.setChecked(True)
         else:
             self.ui.aud_custom_rad.setChecked(True)
+            self.ui.aud_custom_line.setText(aud_fmt)
+        self.vid_custom_toggled()
+        self.aud_custom_toggled()
 
     def setup_control(self):
         self.ui.search_btn.clicked.connect(self.search_clicked)
         self.ui.save_dir_btn.clicked.connect(self.save_dir_clicked)
         self.ui.vid_btn_grp.buttonToggled.connect(self.vid_grp_toggled)
         self.ui.aud_btn_grp.buttonToggled.connect(self.aud_grp_toggled)
+        self.ui.vid_custom_rad.toggled.connect(self.vid_custom_toggled)
+        self.ui.aud_custom_rad.toggled.connect(self.aud_custom_toggled)
     
     def search_clicked(self):
         self.url = self.ui.url_line.text()
@@ -66,6 +72,12 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         if btn.objectName() == "aud_none_rad" and self.ui.vid_none_rad.isChecked():
             self.ui.vid_best_rad.setChecked(True)
         self.config.set_aud_fmt(btn.objectName())
+    
+    def vid_custom_toggled(self):
+        self.ui.vid_custom_line.setEnabled(self.ui.vid_custom_rad.isChecked())
+    
+    def aud_custom_toggled(self):
+        self.ui.aud_custom_line.setEnabled(self.ui.aud_custom_rad.isChecked())
     
     def reverse_button_stat(self):
         reverse_stat = not self.ui.search_btn.isEnabled()
