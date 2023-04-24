@@ -32,7 +32,11 @@
 
 - add video/audio format specific options, and `line edit` objects enable when options are checked
 
-2023/04/24
+2023/04/24 - 1
 
 - Return To Default and Save As Default buttons now work
 - fix custom formats not passed correctly
+
+2023/04/24 - 2
+
+- Download button now works

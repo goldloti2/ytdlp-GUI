@@ -1,5 +1,5 @@
 import Config
-from DL import Search_Thread
+from DL import DL_Thread
 import os
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QFileDialog
@@ -47,10 +47,11 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.aud_custom_line.textChanged.connect(self.config.set_aud_fmt)
         self.ui.ret_def_btn.clicked.connect(self.init_fillin)
         self.ui.save_def_btn.clicked.connect(self.config.save_config)
+        self.ui.dl_btn.clicked.connect(self.dl_clicked)
     
     def search_clicked(self):
         self.url = self.ui.url_line.text()
-        self.search_thread = Search_Thread(self.url, self.config.get_ytdl())
+        self.search_thread = DL_Thread(self.url, self.config.get_ytdl())
         self.search_thread.started.connect(self.reverse_button_stat)
         self.search_thread.result_sig.connect(self.update_res_list)
         self.search_thread.finished.connect(self.reverse_button_stat)
@@ -89,6 +90,12 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def aud_custom_toggled(self):
         self.ui.aud_custom_line.setEnabled(self.ui.aud_custom_rad.isChecked())
+    
+    def dl_clicked(self):
+        self.dl_thread = DL_Thread(self.url, self.config.get_ytdl(), True)
+        self.dl_thread.started.connect(self.reverse_button_stat)
+        self.dl_thread.finished.connect(self.reverse_button_stat)
+        self.dl_thread.start()
     
     def reverse_button_stat(self):
         reverse_stat = not self.ui.search_btn.isEnabled()
