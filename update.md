@@ -31,3 +31,8 @@
 2023/04/23 - 5
 
 - add video/audio format specific options, and `line edit` objects enable when options are checked
+
+2023/04/24
+
+- Return To Default and Save As Default buttons now work
+- fix custom formats not passed correctly

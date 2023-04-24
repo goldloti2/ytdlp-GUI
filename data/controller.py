@@ -15,6 +15,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.setup_control()
     
     def init_fillin(self):
+        self.config.load_config()
         self.ui.save_dir_line.setText(self.config.get_save_dir())
         vid_fmt = self.config.get_vid_fmt()
         if vid_fmt == "vid_best_rad":
@@ -42,6 +43,10 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.aud_btn_grp.buttonToggled.connect(self.aud_grp_toggled)
         self.ui.vid_custom_rad.toggled.connect(self.vid_custom_toggled)
         self.ui.aud_custom_rad.toggled.connect(self.aud_custom_toggled)
+        self.ui.vid_custom_line.textChanged.connect(self.config.set_vid_fmt)
+        self.ui.aud_custom_line.textChanged.connect(self.config.set_aud_fmt)
+        self.ui.ret_def_btn.clicked.connect(self.init_fillin)
+        self.ui.save_def_btn.clicked.connect(self.config.save_config)
     
     def search_clicked(self):
         self.url = self.ui.url_line.text()
@@ -64,14 +69,20 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             return
         if btn.objectName() == "vid_none_rad" and self.ui.aud_none_rad.isChecked():
             self.ui.aud_best_rad.setChecked(True)
-        self.config.set_vid_fmt(btn.objectName())
+        if btn.objectName() == "vid_custom_rad":
+            self.config.set_vid_fmt(self.ui.vid_custom_line.text())
+        else:
+            self.config.set_vid_fmt(btn.objectName())
     
     def aud_grp_toggled(self, btn: QtWidgets.QRadioButton):
         if not btn.isChecked():
             return
         if btn.objectName() == "aud_none_rad" and self.ui.vid_none_rad.isChecked():
             self.ui.vid_best_rad.setChecked(True)
-        self.config.set_aud_fmt(btn.objectName())
+        if btn.objectName() == "aud_custom_rad":
+            self.config.set_aud_fmt(self.ui.aud_custom_line.text())
+        else:
+            self.config.set_aud_fmt(btn.objectName())
     
     def vid_custom_toggled(self):
         self.ui.vid_custom_line.setEnabled(self.ui.vid_custom_rad.isChecked())
