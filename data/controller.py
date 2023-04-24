@@ -119,11 +119,26 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.ui.ck_file_line.setText(file_path)
     
     def dl_clicked(self):
+        self.ui.dl_bar.setValue(0)
+        self.ui.ela_lbl.clear()
+        self.ui.eta_lbl.clear()
         self.dl_thread = DL_Thread(self.url, self.config.get_ytdl(), True)
         self.dl_thread.started.connect(self.reverse_button_stat)
         self.dl_thread.finished.connect(self.reverse_button_stat)
+        self.dl_thread.prog_sig.connect(self.change_bar_stat)
         self.dl_thread.start()
     
+    def change_bar_stat(self, info: dict):
+        if info["status"] == "downloading":
+            self.ui.dl_bar.setValue(info["pct"])
+            self.ui.dl_name_lbl.setText(info["name"])
+            self.ui.ela_lbl.setText(info["ela"])
+            self.ui.eta_lbl.setText("ETA: " + info["eta"])
+        elif info["status"] == "finished":
+            self.ui.dl_bar.setValue(info["pct"])
+            self.ui.ela_lbl.setText(info["ela"])
+            self.ui.eta_lbl.setText("finished")
+
     def reverse_button_stat(self):
         reverse_stat = not self.ui.search_btn.isEnabled()
         self.ui.search_btn.setEnabled(reverse_stat)

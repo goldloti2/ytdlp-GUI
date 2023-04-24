@@ -51,3 +51,7 @@
 
 - cookie path can be passed to yt-dlp
 - save folder and cookie line change to read only
+
+2023/04/24 - 5
+
+- download progress links to progress bar, file name, elapsed time and ETA
