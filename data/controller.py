@@ -17,6 +17,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def init_fillin(self):
         self.config.load_config()
         self.ui.save_dir_line.setText(self.config.get_save_dir())
+        self.ui.vid_custom_line.clear()
+        self.ui.aud_custom_line.clear()
         vid_fmt = self.config.get_vid_fmt()
         if vid_fmt == "vid_best_rad":
             self.ui.vid_best_rad.setChecked(True)
@@ -35,8 +37,13 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.ui.aud_custom_line.setText(aud_fmt)
         self.vid_custom_toggled()
         self.aud_custom_toggled()
+        self.ui.ck_check.setChecked(False)
+        self.ui.ck_file_line.setEnabled(False)
+        self.ui.ck_file_line.clear()
+        self.ui.ck_file_btn.setEnabled(False)
 
     def setup_control(self):
+        self.ui.url_line.returnPressed.connect(self.ui.search_btn.click)
         self.ui.search_btn.clicked.connect(self.search_clicked)
         self.ui.save_dir_btn.clicked.connect(self.save_dir_clicked)
         self.ui.vid_btn_grp.buttonToggled.connect(self.vid_grp_toggled)
@@ -45,6 +52,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.aud_custom_rad.toggled.connect(self.aud_custom_toggled)
         self.ui.vid_custom_line.textChanged.connect(self.config.set_vid_fmt)
         self.ui.aud_custom_line.textChanged.connect(self.config.set_aud_fmt)
+        self.ui.ck_check.clicked.connect(self.ck_check_clicked)
+        self.ui.ck_file_btn.clicked.connect(self.ck_file_clicked)
         self.ui.ret_def_btn.clicked.connect(self.init_fillin)
         self.ui.save_def_btn.clicked.connect(self.config.save_config)
         self.ui.dl_btn.clicked.connect(self.dl_clicked)
@@ -90,6 +99,17 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def aud_custom_toggled(self):
         self.ui.aud_custom_line.setEnabled(self.ui.aud_custom_rad.isChecked())
+    
+    def ck_check_clicked(self):
+        self.ui.ck_file_line.setEnabled(self.ui.ck_check.isChecked())
+        self.ui.ck_file_btn.setEnabled(self.ui.ck_check.isChecked())
+    
+    def ck_file_clicked(self):
+        file_path, file_type = QFileDialog.getOpenFileName(self,
+                                                           "Open cookie file",
+                                                           ".")
+        if file_path != "":
+            self.ui.ck_file_line.setText(file_path)
     
     def dl_clicked(self):
         self.dl_thread = DL_Thread(self.url, self.config.get_ytdl(), True)

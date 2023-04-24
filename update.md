@@ -40,3 +40,9 @@
 2023/04/24 - 2
 
 - Download button now works
+
+2023/04/24 - 3
+
+- cookies checkbox enables/disables cookies file input
+- cookies file browser fills in path automatically
+- Return To Default clears all texts in option
