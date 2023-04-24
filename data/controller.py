@@ -101,14 +101,21 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.aud_custom_line.setEnabled(self.ui.aud_custom_rad.isChecked())
     
     def ck_check_clicked(self):
-        self.ui.ck_file_line.setEnabled(self.ui.ck_check.isChecked())
-        self.ui.ck_file_btn.setEnabled(self.ui.ck_check.isChecked())
+        if self.ui.ck_check.isChecked():
+            self.ui.ck_file_line.setEnabled(True)
+            self.ui.ck_file_btn.setEnabled(True)
+            self.config.set_cookie(self.ui.ck_file_line.text())
+        else:
+            self.ui.ck_file_line.setEnabled(False)
+            self.ui.ck_file_btn.setEnabled(False)
+            self.config.set_cookie("")
     
     def ck_file_clicked(self):
         file_path, file_type = QFileDialog.getOpenFileName(self,
                                                            "Open cookie file",
                                                            ".")
         if file_path != "":
+            self.config.set_cookie(file_path)
             self.ui.ck_file_line.setText(file_path)
     
     def dl_clicked(self):

@@ -11,13 +11,14 @@ class Config():
     def load_config(self):
         with open(self.__config_path, "r") as f:
             self.__json = json.load(f)
+        self.__cookiefile = ""
 
     def save_config(self):
         with open(self.__config_path, "w") as f:
             json.dump(self.__json, f)
     
     def get_ytdl(self) -> dict:
-        ytdl = self.__json["ytdl"]
+        ytdl = self.__json["ytdl"].copy()
         ytdl["outtmpl"] = os.path.join(self.__json["save_dir"],
                                        self.__json["outtmpl"])
         if self.__json["vid_fmt"] == "":
@@ -27,6 +28,8 @@ class Config():
         else:
             ytdl["format"] = f"{self.__json['vid_fmt']}+{self.__json['aud_fmt']}"
         ytdl["format"] += self.__json["def_fmt"]
+        if self.__cookiefile != "":
+            ytdl["cookiefile"] = self.__cookiefile
         return ytdl
     
     def set_save_dir(self, save_dir: str):
@@ -66,3 +69,6 @@ class Config():
             return "aud_none_rad"
         else:
             return self.__json["aud_fmt"]
+    
+    def set_cookie(self, cookie: str):
+        self.__cookiefile = cookie

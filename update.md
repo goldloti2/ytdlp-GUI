@@ -46,3 +46,8 @@
 - cookies checkbox enables/disables cookies file input
 - cookies file browser fills in path automatically
 - Return To Default clears all texts in option
+
+2023/04/24 - 4
+
+- cookie path can be passed to yt-dlp
+- save folder and cookie line change to read only
