@@ -44,6 +44,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.ck_file_line.setEnabled(False)
         self.ui.ck_file_line.clear()
         self.ui.ck_file_btn.setEnabled(False)
+        self.ui.dl_btn.setEnabled(False)
 
     def setup_control(self):
         self.ui.url_line.returnPressed.connect(self.ui.search_btn.click)
@@ -158,7 +159,6 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         reverse_stat = not self.ui.search_btn.isEnabled()
         self.ui.search_btn.setEnabled(reverse_stat)
         self.ui.dl_btn.setEnabled(reverse_stat)
-        self.ui.save_dir_btn.setEnabled(reverse_stat)
     
     def update_res_list(self, result: list):
         self.res_formats = result[1]

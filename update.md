@@ -66,3 +66,8 @@
 - known bug:
   - progress hooks don't work when downloading niconico video
   - long video name may stretch window
+
+2023/04/25 - 3
+
+- download button is disabled until the first search done
+- option buttons won't be disabled during searching and downloading
