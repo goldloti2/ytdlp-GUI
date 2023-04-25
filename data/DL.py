@@ -12,8 +12,8 @@ def time_to_str(time: Union[int, float]):
         return "???"
     time = int(round(time, 0))
     second = time % 60
-    minute = int(time / 60 % 60)
-    hour = int(time / 3600)
+    minute = time // 60 % 60
+    hour = time // 3600
     return f"{hour:02d}:{minute:02d}:{second:02d}"
 
 def valid(d: dict, k: str):

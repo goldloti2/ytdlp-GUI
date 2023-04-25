@@ -75,3 +75,7 @@
 2023/04/25 - 4
 
 - add universal logger and ytdl logger
+
+2023/04/25 - 5
+
+- minus change to time to string
