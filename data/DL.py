@@ -1,3 +1,4 @@
+import logging
 import os
 from PyQt5.QtCore import QThread, pyqtSignal
 from typing import Union
@@ -28,21 +29,16 @@ class DL_Thread(QThread):
         super().__init__(parent)
         self.url = url
         self.ytdl_opt = ytdl_opt
+        self.ytdl_opt["logger"] = logging.getLogger("ytdl")
         self.ytdl_opt["progress_hooks"] = [self.hook_signal]
         self.download = download
+        self.logger = logging.getLogger("logger")
         # self.ytdl_opt["listformats"] = True
 
     def run(self):
         try:
             with YoutubeDL(self.ytdl_opt) as ytdl:
                 info = ytdl.extract_info(self.url, download = self.download)
-        except yt_dlp.utils.DownloadError as e:
-            self.error_sig.emit(e.args[0])
-            print(e.args[0])
-        except Exception as e:
-            self.error_sig.emit(e.args[0])
-            print(e.args[0])
-        else:
             res_list = [[], []]
             if "entries" in info.keys():
                 for entry in info["entries"]:
@@ -52,6 +48,12 @@ class DL_Thread(QThread):
                 res_list[0].append(info["title"])
                 res_list[1].append(self.format_parse(info["formats"]))
             self.result_sig.emit(res_list)
+        except yt_dlp.utils.DownloadError as e:
+            self.error_sig.emit(e.args[0])
+            self.logger.exception("ytdl download error")
+        except Exception as e:
+            self.error_sig.emit(e.args[0])
+            self.logger.exception("error during download")
     
     def hook_signal(self, d: dict):
         pct = float(d["_percent_str"].split("%")[0][-5:].split(" ")[-1])

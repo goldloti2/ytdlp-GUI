@@ -71,3 +71,7 @@
 
 - download button is disabled until the first search done
 - option buttons won't be disabled during searching and downloading
+
+2023/04/25 - 4
+
+- add universal logger and ytdl logger
