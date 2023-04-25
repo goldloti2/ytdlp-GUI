@@ -55,3 +55,7 @@
 2023/04/24 - 5
 
 - download progress links to progress bar, file name, elapsed time and ETA
+
+2023/04/25
+
+- format table shows available formats of the chosen video

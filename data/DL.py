@@ -13,6 +13,9 @@ def time_to_str(time: Union[int, float]):
     hour = int(time / 3600)
     return f"{hour:02d}:{minute:02d}:{second:02d}"
 
+def valid(d: dict, k: str):
+    return k in d.keys() and d[k] != None
+
 
 class DL_Thread(QThread):
     result_sig = pyqtSignal(list)
@@ -36,12 +39,14 @@ class DL_Thread(QThread):
         except:
             print("bbbbbbbbbbbbbb")
         else:
-            res_list = []
+            res_list = [[], []]
             if "entries" in info.keys():
                 for entry in info["entries"]:
-                    res_list.append(entry["title"])
+                    res_list[0].append(entry["title"])
+                    res_list[1].append(self.format_parse(entry["formats"]))
             else:
-                res_list.append(info["title"])
+                res_list[0].append(info["title"])
+                res_list[1].append(self.format_parse(info["formats"]))
             self.result_sig.emit(res_list)
     
     def hook_signal(self, d: dict):
@@ -57,3 +62,42 @@ class DL_Thread(QThread):
         if "eta" in d.keys():
             info["eta"] = time_to_str(d["eta"])
         self.prog_sig.emit(info)
+    
+    def format_parse(self, formats: list):
+        parse = []
+        for f in formats:
+            p = {
+                "id": f["format_id"],
+                "ext": f["ext"],
+                "res": f["resolution"],
+                "note": f["format_note"],
+                "fps": "",
+                "ch": "",
+                "size": "",
+                "vbr": "",
+                "abr": "",
+                "asr": ""
+                }
+            if valid(f, "fps"):
+                p["fps"] = f"{f['fps']:.0f}"
+            if valid(f, "audio_channels"):
+                p["ch"] = str(f["audio_channels"])
+            if valid(f, "vbr"):
+                p["vbr"] = f"{f['vbr']:.0f}K"
+            if valid(f, "abr"):
+                p["abr"] = f"{f['abr']:.0f}K"
+            if valid(f, "asr"):
+                p["asr"] = f"{f['asr'] / 1000:.1f}K"
+            if valid(f, "filesize"):
+                filesize = f["filesize"]
+                if filesize < 1024:
+                    size_str = f"{filesize}B"
+                elif filesize < 1048576:
+                    size_str = f"{filesize / 1024:.2f}KiB"
+                elif filesize < 1073741824:
+                    size_str = f"{filesize / 1048576:.2f}MiB"
+                else:
+                    size_str = f"{filesize / 1073741824:.2f}GiB"
+                p["size"] = size_str
+            parse.append(p)
+        return parse

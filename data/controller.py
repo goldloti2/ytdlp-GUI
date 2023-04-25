@@ -13,6 +13,9 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.config = Config.Config("./config/basic.cfg")
         self.init_fillin()
         self.setup_control()
+        self.f_tbl_name = []
+        for i in range(self.ui.format_table.columnCount()):
+            self.f_tbl_name.append(self.ui.format_table.horizontalHeaderItem(i).text())
     
     def init_fillin(self):
         self.config.load_config()
@@ -45,6 +48,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def setup_control(self):
         self.ui.url_line.returnPressed.connect(self.ui.search_btn.click)
         self.ui.search_btn.clicked.connect(self.search_clicked)
+        self.ui.res_list.itemSelectionChanged.connect(self.res_list_changed)
         self.ui.save_dir_btn.clicked.connect(self.save_dir_clicked)
         self.ui.vid_btn_grp.buttonToggled.connect(self.vid_grp_toggled)
         self.ui.aud_btn_grp.buttonToggled.connect(self.aud_grp_toggled)
@@ -65,6 +69,17 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.search_thread.result_sig.connect(self.update_res_list)
         self.search_thread.finished.connect(self.reverse_button_stat)
         self.search_thread.start()
+    
+    def res_list_changed(self):
+        res_format = self.res_formats[self.ui.res_list.currentRow()]
+        self.ui.format_table.setRowCount(len(res_format))
+        for i, res in enumerate(res_format):
+            for j, name in enumerate(self.f_tbl_name):
+                new_item = QtWidgets.QTableWidgetItem(res[name])
+                self.ui.format_table.setItem(i, j, new_item)
+                if name == "note":
+                    new_item.setToolTip(res[name])
+        self.ui.format_table.resizeColumnsToContents()
     
     def save_dir_clicked(self):
         dir_path = QFileDialog.getExistingDirectory(self,
@@ -146,6 +161,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.save_dir_btn.setEnabled(reverse_stat)
     
     def update_res_list(self, result: list):
-        self.ui.res_list_box.setTitle(f"Found Video - {len(result)} total")
+        self.res_formats = result[1]
+        self.ui.res_list_box.setTitle(f"Found Video - {len(result[0])} total")
         self.ui.res_list.clear()
-        self.ui.res_list.addItems(result)
+        self.ui.res_list.addItems(result[0])
+        self.ui.res_list.setCurrentRow(0)
