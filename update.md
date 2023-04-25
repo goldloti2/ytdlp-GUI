@@ -56,6 +56,13 @@
 
 - download progress links to progress bar, file name, elapsed time and ETA
 
-2023/04/25
+2023/04/25 - 1
 
 - format table shows available formats of the chosen video
+
+2023/04/25 - 2
+
+- fix Facebook video download error (missing keys in progress hooks)
+- known bug:
+  - progress hooks don't work when downloading niconico video
+  - long video name may stretch window

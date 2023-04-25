@@ -7,6 +7,8 @@ from yt_dlp import YoutubeDL
 
 
 def time_to_str(time: Union[int, float]):
+    if not (isinstance(time, int) or isinstance(time, float)):
+        return "???"
     time = int(round(time, 0))
     second = time % 60
     minute = int(time / 60 % 60)
@@ -36,8 +38,10 @@ class DL_Thread(QThread):
                 info = ytdl.extract_info(self.url, download = self.download)
         except yt_dlp.utils.DownloadError as e:
             self.error_sig.emit(e.args[0])
-        except:
-            print("bbbbbbbbbbbbbb")
+            print(e.args[0])
+        except Exception as e:
+            self.error_sig.emit(e.args[0])
+            print(e.args[0])
         else:
             res_list = [[], []]
             if "entries" in info.keys():
@@ -70,7 +74,7 @@ class DL_Thread(QThread):
                 "id": f["format_id"],
                 "ext": f["ext"],
                 "res": f["resolution"],
-                "note": f["format_note"],
+                "note": "",
                 "fps": "",
                 "ch": "",
                 "size": "",
@@ -88,6 +92,8 @@ class DL_Thread(QThread):
                 p["abr"] = f"{f['abr']:.0f}K"
             if valid(f, "asr"):
                 p["asr"] = f"{f['asr'] / 1000:.1f}K"
+            if valid(f, "format_note"):
+                p["note"] = f["format_note"]
             if valid(f, "filesize"):
                 filesize = f["filesize"]
                 if filesize < 1024:
