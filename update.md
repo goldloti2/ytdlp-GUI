@@ -111,3 +111,8 @@
 
 - v1.0 release (only for Windows x86-64)
 - add build command
+
+2023/04/26 - 7
+
+- update README.md
+- set more options in build.cmd

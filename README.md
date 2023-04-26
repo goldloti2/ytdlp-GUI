@@ -18,4 +18,11 @@ Python 3.8 packages: (listed in requirements.txt)
 
 others:
 
-- ffmpeg [https://ffmpeg.org/]
+- [ffmpeg](https://ffmpeg.org/)
+
+## How to Run With Python
+
+1. Install python and required packages
+2. Download ffmpeg and put ffmpeg.exe into `data` folder
+    - or change `ytdl: ffmpeg_location` in `config/basic.cfg` to your ffmpeg.exe
+3. Run `data/main.py`
