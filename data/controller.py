@@ -21,10 +21,10 @@ class MainWindow_controller(QtWidgets.QMainWindow):
             self.f_tbl_name.append(self.ui.format_table.horizontalHeaderItem(i).text())
     
     def init_fillin(self):
-        self.config.load_config()
-        self.ui.save_dir_line.setText(self.config.get_save_dir())
         self.ui.vid_custom_line.clear()
         self.ui.aud_custom_line.clear()
+        self.config.load_config()
+        self.ui.save_dir_line.setText(self.config.get_save_dir())
         vid_fmt = self.config.get_vid_fmt()
         if vid_fmt == "vid_best_rad":
             self.ui.vid_best_rad.setChecked(True)

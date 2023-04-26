@@ -90,4 +90,8 @@
 - add logger
 - code style improve
 - known bug:
-  - clicking Return To Default when custom video/audio button is checked, none video/audio button is checked rather than the default setting
+  - clicking Return To Default when custom video/audio button is checked, none video/audio button is checked rather than the default setting (fixed in 2023/04/26-3)
+
+2023/04/26 - 3
+
+- fix bug: unexpected behavior of Return To Default button (bug in 2023/04/26-2)
