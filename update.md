@@ -64,8 +64,8 @@
 
 - fix Facebook video download error (missing keys in progress hooks)
 - known bug:
-  - progress hooks don't work when downloading niconico video
-  - long video name may stretch window
+  - progress hooks don't work when downloading niconico video *(2023/04/25 note: package-site bug)*
+  - long video name may stretch window *(fixed in 2023/04/26-5)*
 
 2023/04/25 - 3
 
@@ -90,13 +90,19 @@
 - add logger
 - code style improve
 - known bug:
-  - clicking Return To Default when custom video/audio button is checked, none video/audio button is checked rather than the default setting (fixed in 2023/04/26-3)
+  - clicking Return To Default when custom video/audio button is checked, none video/audio button is checked rather than the default setting *(fixed in 2023/04/26-3)*
 
 2023/04/26 - 3
 
-- fix bug: unexpected behavior of Return To Default button (bug in 2023/04/26-2)
+- fix bug: unexpected behavior of Return To Default button *(bug in 2023/04/26-2)*
 
 2023/04/26 - 4
 
 - add download error message box
 - remove ANSI Escape Code in messages from yt-dlp to UI
+
+2023/04/26 - 5
+
+- add icon
+- change title to "Video Downloader"
+- fix bug: long video name may stretch window horizontally, though it may take space above it *(bug in 2023/04/25-2)*

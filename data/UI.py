@@ -15,6 +15,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(600, 600)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("data\\UI\\../icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -194,6 +197,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.dl_name_lbl = QtWidgets.QLabel(self.centralwidget)
         self.dl_name_lbl.setText("")
+        self.dl_name_lbl.setWordWrap(True)
         self.dl_name_lbl.setObjectName("dl_name_lbl")
         self.horizontalLayout_3.addWidget(self.dl_name_lbl)
         self.ela_lbl = QtWidgets.QLabel(self.centralwidget)
@@ -249,7 +253,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Video Downloader"))
         self.horizontalGroupBox.setTitle(_translate("MainWindow", "Download URL"))
         self.search_btn.setText(_translate("MainWindow", "Search"))
         self.res_list_box.setTitle(_translate("MainWindow", "Found Video"))
