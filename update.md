@@ -106,3 +106,8 @@
 - add icon
 - change title to "Video Downloader"
 - fix bug: long video name may stretch window horizontally, though it may take space above it *(bug in 2023/04/25-2)*
+
+2023/04/26 - 6 v1.0
+
+- v1.0 release (only for Windows x86-64)
+- add build command
