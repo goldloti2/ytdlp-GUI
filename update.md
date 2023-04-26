@@ -79,3 +79,8 @@
 2023/04/25 - 5
 
 - minus change to time to string
+
+2023/04/26
+
+- tab sequence change
+- buttons can be pressed with enter key

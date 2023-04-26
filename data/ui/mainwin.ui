@@ -260,6 +260,9 @@
            <property name="text">
             <string>Return To Default</string>
            </property>
+           <property name="autoDefault">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item row="3" column="0">
@@ -333,6 +336,9 @@
            <property name="text">
             <string>Save As Default</string>
            </property>
+           <property name="autoDefault">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
         </layout>
@@ -348,6 +354,9 @@
          <widget class="QPushButton" name="dl_btn">
           <property name="text">
            <string>Download</string>
+          </property>
+          <property name="autoDefault">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -411,6 +420,28 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>url_line</tabstop>
+  <tabstop>search_btn</tabstop>
+  <tabstop>res_list</tabstop>
+  <tabstop>dl_btn</tabstop>
+  <tabstop>format_table</tabstop>
+  <tabstop>save_dir_line</tabstop>
+  <tabstop>save_dir_btn</tabstop>
+  <tabstop>vid_best_rad</tabstop>
+  <tabstop>vid_none_rad</tabstop>
+  <tabstop>vid_custom_rad</tabstop>
+  <tabstop>vid_custom_line</tabstop>
+  <tabstop>aud_best_rad</tabstop>
+  <tabstop>aud_none_rad</tabstop>
+  <tabstop>aud_custom_rad</tabstop>
+  <tabstop>aud_custom_line</tabstop>
+  <tabstop>ck_check</tabstop>
+  <tabstop>ck_file_line</tabstop>
+  <tabstop>ck_file_btn</tabstop>
+  <tabstop>ret_def_btn</tabstop>
+  <tabstop>save_def_btn</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>
