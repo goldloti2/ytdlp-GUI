@@ -95,3 +95,8 @@
 2023/04/26 - 3
 
 - fix bug: unexpected behavior of Return To Default button (bug in 2023/04/26-2)
+
+2023/04/26 - 4
+
+- add download error message box
+- remove ANSI Escape Code in messages from yt-dlp to UI

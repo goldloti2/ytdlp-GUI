@@ -2,6 +2,7 @@ import json
 import logging
 import os
 from PyQt5.QtCore import QThread, pyqtSignal
+import re
 from typing import Union
 import yt_dlp
 from yt_dlp import YoutubeDL
@@ -19,6 +20,9 @@ def time_to_str(time: Union[int, float]):
 
 def valid(d: dict, k: str):
     return k in d.keys() and d[k] != None
+
+def remove_ansi(input: str):
+    return re.compile(r'\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])').sub("", input)
 
 
 class DL_Thread(QThread):
@@ -53,7 +57,7 @@ class DL_Thread(QThread):
                 res_list[1].append(self.format_parse(info["formats"]))
             self.result_sig.emit(res_list)
         except yt_dlp.utils.DownloadError as e:
-            self.error_sig.emit(e.args[0])
+            self.error_sig.emit(f"ytdl error: {remove_ansi(e.args[0])}")
             self.logger.exception("ytdl download error")
         except Exception as e:
             self.error_sig.emit(e.args[0])
@@ -61,7 +65,7 @@ class DL_Thread(QThread):
         self.logger.debug("download end")
     
     def hook_signal(self, d: dict):
-        pct = float(d["_percent_str"].split("%")[0][-5:].split(" ")[-1])
+        pct = float(remove_ansi(d["_percent_str"]).strip("%"))
         name = os.path.split(d["filename"])[-1]
         name = os.path.splitext(name)[0]
         info = {

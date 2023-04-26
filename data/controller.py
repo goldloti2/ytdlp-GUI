@@ -4,7 +4,7 @@ import json
 import logging
 import os
 from PyQt5 import QtWidgets, QtGui, QtCore
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from UI import Ui_MainWindow
 
 class MainWindow_controller(QtWidgets.QMainWindow):
@@ -71,8 +71,9 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.logger.info("search %s", self.url)
         self.search_thread = DL_Thread(self.url, self.config.get_ytdl())
         self.search_thread.started.connect(self.reverse_button_stat)
-        self.search_thread.result_sig.connect(self.update_res_list)
         self.search_thread.finished.connect(self.reverse_button_stat)
+        self.search_thread.result_sig.connect(self.update_res_list)
+        self.search_thread.error_sig.connect(self.error_msgbox)
         self.search_thread.start()
     
     def res_list_changed(self):
@@ -155,6 +156,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.dl_thread.started.connect(self.reverse_button_stat)
         self.dl_thread.finished.connect(self.reverse_button_stat)
         self.dl_thread.prog_sig.connect(self.change_bar_stat)
+        self.search_thread.error_sig.connect(self.error_msgbox)
         self.dl_thread.start()
     
     def change_bar_stat(self, info: dict):
@@ -181,3 +183,6 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.res_list.clear()
         self.ui.res_list.addItems(result[0])
         self.ui.res_list.setCurrentRow(0)
+    
+    def error_msgbox(self, msg: str):
+        mbox = QMessageBox.critical(self.ui.centralwidget, "Error when downloading", msg)
