@@ -173,7 +173,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def reverse_button_stat(self):
         reverse_stat = not self.ui.search_btn.isEnabled()
         self.ui.search_btn.setEnabled(reverse_stat)
-        self.ui.dl_btn.setEnabled(reverse_stat)
+        if self.ui.res_list.count() != 0:
+            self.ui.dl_btn.setEnabled(reverse_stat)
     
     def update_res_list(self, result: list):
         self.logger.info("found video: (%d)", len(result[0]))

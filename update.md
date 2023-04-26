@@ -116,3 +116,8 @@
 
 - update README.md
 - set more options in build.cmd
+
+2023/04/26 - 8 v1.0.1
+
+- fix bug: Download button should only be enabled after a successful search
+- update How to Use Cookies in README.md

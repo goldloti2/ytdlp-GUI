@@ -5,4 +5,4 @@ copy .\config\basic.cfg .\dist\config\
 copy .\data\icon.ico .\dist\data\
 copy .\data\ffmpeg.exe .\dist\data\
 cd dist
-zip -r -u .\VDlr_v1_0_win_x86_64.zip .\config .\data .\VDlr.exe
+zip -r -u .\VDlr_v1_0_1_win_x86_64.zip .\config .\data .\VDlr.exe

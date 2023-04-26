@@ -26,3 +26,8 @@ others:
 2. Download ffmpeg and put ffmpeg.exe into `data` folder
     - or change `ytdl: ffmpeg_location` in `config/basic.cfg` to your ffmpeg.exe
 3. Run `data/main.py`
+
+## How to Use Cookies
+
+1. Get coockies in Netscape format. Most browsers have supported plugin such as `GET cookies.txt`
+2. Choose cookies file and go
