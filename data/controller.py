@@ -1,16 +1,19 @@
 import Config
 from DL import DL_Thread
+import json
+import logging
 import os
 from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QFileDialog
 from UI import Ui_MainWindow
 
 class MainWindow_controller(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self, logger: str = "logger"):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.config = Config.Config("./config/basic.cfg")
+        self.logger = logging.getLogger(logger)
+        self.config = Config.Config("./config/basic.cfg", logger)
         self.init_fillin()
         self.setup_control()
         self.f_tbl_name = []
@@ -65,6 +68,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def search_clicked(self):
         self.url = self.ui.url_line.text()
+        self.logger.info("search %s", self.url)
         self.search_thread = DL_Thread(self.url, self.config.get_ytdl())
         self.search_thread.started.connect(self.reverse_button_stat)
         self.search_thread.result_sig.connect(self.update_res_list)
@@ -81,11 +85,15 @@ class MainWindow_controller(QtWidgets.QMainWindow):
                 if name == "note":
                     new_item.setToolTip(res[name])
         self.ui.format_table.resizeColumnsToContents()
+        self.logger.info(
+            "format table change, video id: (%d), availabe formats: (%d)",
+            self.ui.res_list.currentRow(), len(res_format))
+        self.logger.debug("\n%s", json.dumps(res_format, indent = 4))
     
     def save_dir_clicked(self):
-        dir_path = QFileDialog.getExistingDirectory(self,
-                                                    "Open folder",
-                                                    self.config.get_save_dir())
+        self.logger.info("save folder button clicked")
+        dir_path = QFileDialog.getExistingDirectory(
+            self, "Open folder", self.config.get_save_dir())
         if dir_path != "":
             self.config.set_save_dir(dir_path)
             self.ui.save_dir_line.setText(dir_path)
@@ -93,6 +101,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def vid_grp_toggled(self, btn: QtWidgets.QRadioButton):
         if not btn.isChecked():
             return
+        self.logger.info("video format radio clicked: %s", btn.objectName())
         if btn.objectName() == "vid_none_rad" and self.ui.aud_none_rad.isChecked():
             self.ui.aud_best_rad.setChecked(True)
         if btn.objectName() == "vid_custom_rad":
@@ -103,6 +112,7 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     def aud_grp_toggled(self, btn: QtWidgets.QRadioButton):
         if not btn.isChecked():
             return
+        self.logger.info("audio format radio clicked: %s", btn.objectName())
         if btn.objectName() == "aud_none_rad" and self.ui.vid_none_rad.isChecked():
             self.ui.vid_best_rad.setChecked(True)
         if btn.objectName() == "aud_custom_rad":
@@ -118,23 +128,26 @@ class MainWindow_controller(QtWidgets.QMainWindow):
     
     def ck_check_clicked(self):
         if self.ui.ck_check.isChecked():
+            self.logger.info("check cookie checkbox")
             self.ui.ck_file_line.setEnabled(True)
             self.ui.ck_file_btn.setEnabled(True)
             self.config.set_cookie(self.ui.ck_file_line.text())
         else:
+            self.logger.info("uncheck cookie checkbox")
             self.ui.ck_file_line.setEnabled(False)
             self.ui.ck_file_btn.setEnabled(False)
             self.config.set_cookie("")
     
     def ck_file_clicked(self):
-        file_path, file_type = QFileDialog.getOpenFileName(self,
-                                                           "Open cookie file",
-                                                           ".")
+        self.logger.info("cookie file button clicked")
+        file_path, file_type = QFileDialog.getOpenFileName(
+            self, "Open cookie file", ".")
         if file_path != "":
             self.config.set_cookie(file_path)
             self.ui.ck_file_line.setText(file_path)
     
     def dl_clicked(self):
+        self.logger.info("download %s", self.url)
         self.ui.dl_bar.setValue(0)
         self.ui.ela_lbl.clear()
         self.ui.eta_lbl.clear()
@@ -161,6 +174,8 @@ class MainWindow_controller(QtWidgets.QMainWindow):
         self.ui.dl_btn.setEnabled(reverse_stat)
     
     def update_res_list(self, result: list):
+        self.logger.info("found video: (%d)", len(result[0]))
+        self.logger.debug("\n%s", json.dumps(result[0], indent = 4))
         self.res_formats = result[1]
         self.ui.res_list_box.setTitle(f"Found Video - {len(result[0])} total")
         self.ui.res_list.clear()

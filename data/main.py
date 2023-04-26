@@ -9,7 +9,7 @@ import time
 
 def init_logger():
     timestamp = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-    fmt = logging.Formatter('[%(asctime)s]:[%(levelname)s]:%(name)s: %(message)s')
+    fmt = logging.Formatter('[%(asctime)s]:[%(levelname)s]: %(message)s')
     
     if not os.path.isdir("log"):
         os.mkdir("log")
@@ -18,7 +18,7 @@ def init_logger():
     uni_logger.setLevel(logging.DEBUG)
     filename = os.path.join("log", timestamp + ".log")
     fh = logging.FileHandler(filename = filename, encoding = "utf-8")
-    fh.setLevel(logging.DEBUG)
+    fh.setLevel(logging.INFO)
     fh.setFormatter(fmt)
     uni_logger.addHandler(fh)
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     logger = logging.getLogger("logger")
     try:
         app = QtWidgets.QApplication(sys.argv)
-        window = MainWindow_controller()
+        window = MainWindow_controller("logger")
         window.show()
         sys.exit(app.exec_())
     except SystemExit:

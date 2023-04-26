@@ -80,7 +80,14 @@
 
 - minus change to time to string
 
-2023/04/26
+2023/04/26 - 1
 
 - tab sequence change
 - buttons can be pressed with enter key
+
+2023/04/26 - 2
+
+- add logger
+- code style improve
+- known bug:
+  - clicking Return To Default when custom video/audio button is checked, none video/audio button is checked rather than the default setting
