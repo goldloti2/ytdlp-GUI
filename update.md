@@ -121,3 +121,8 @@
 
 - fix bug: Download button should only be enabled after a successful search
 - update How to Use Cookies in README.md
+
+2023/08/20 v1.0.2023.7.6
+
+- update yt-dlp to v2023.7.6
+- add indep_script for running build script outside
