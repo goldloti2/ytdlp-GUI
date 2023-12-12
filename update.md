@@ -126,3 +126,7 @@
 
 - update yt-dlp to v2023.7.6
 - add indep_script for running build script outside
+
+2023/12/12 v1.0.2023.11.16
+
+- update yt-dlp to v2023.11.16
