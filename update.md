@@ -142,3 +142,10 @@
 2025/10/24 v1.0.2025.10.22
 
 - update yt-dlp to v2025.10.22
+
+2026/02/21 v1.1.2026.2.4
+
+- fix: new progress bar can only accepts int
+- download HLS through ffmpeg (TESTING FEATURE)
+- print debug info to logger
+- update yt-dlp to v2026.2.4

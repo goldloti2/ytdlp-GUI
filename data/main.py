@@ -18,7 +18,7 @@ def init_logger():
     uni_logger.setLevel(logging.DEBUG)
     filename = os.path.join("log", timestamp + ".log")
     fh = logging.FileHandler(filename = filename, encoding = "utf-8")
-    fh.setLevel(logging.INFO)
+    fh.setLevel(logging.DEBUG)
     fh.setFormatter(fmt)
     uni_logger.addHandler(fh)
 

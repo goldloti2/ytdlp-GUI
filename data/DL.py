@@ -65,7 +65,7 @@ class DL_Thread(QThread):
         self.logger.debug("download end")
     
     def hook_signal(self, d: dict):
-        pct = float(remove_ansi(d["_percent_str"]).strip("%"))
+        pct = int(float(remove_ansi(d["_percent_str"]).strip("%")))
         name = os.path.split(d["filename"])[-1]
         name = os.path.splitext(name)[0]
         info = {
